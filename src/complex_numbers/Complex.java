@@ -3,98 +3,60 @@ package complex_numbers;
 public class Complex {
 	private double realPart;
 	private double imaginaryPart;
-	private double degreeArgument;
-	private double module;
 
 	public Complex(double real, double imaginary) {
 		this.realPart = real;
 		this.imaginaryPart = imaginary;
 	}
 
-	public Complex(double real) {
-		this.realPart = real;
-		this.imaginaryPart = 0;
+	public Complex(double value, boolean isImaginary) {
+		if(isImaginary) {
+			this.imaginaryPart = value;
+			this.realPart = 0;
+		}else {
+			this.imaginaryPart = 0;
+			this.realPart = value;
+		}
+		
 	}
-
-	public Complex(double imaginary, char isImaginary) {
-		this.imaginaryPart = imaginary;
-		this.realPart = 0;
-	}
-
-	public void add(double real, double imaginary) {
-		this.realPart += real;
-		this.imaginaryPart += imaginary;
-	}
-
-	public void add(Complex number) {
-		double a = number.getRealPart();
-		double b = number.getImaginaryPart();
-
-		this.realPart += a;
-		this.imaginaryPart += b;
-	}
-
-	public void subtract(double real, double imaginary) {
-		this.realPart -= real;
-		this.imaginaryPart -= imaginary;
-	}
-
-	public void multiply(double real, double imaginary) {
-		double newRealPart;
-		double newImaginaryPart;
-
-		newRealPart = this.realPart * real - this.imaginaryPart * imaginary;
-		newImaginaryPart = this.realPart * imaginary + this.imaginaryPart * real;
-
-		this.realPart = newRealPart;
-		this.imaginaryPart = newImaginaryPart;
-	}
-
-	public void multiply(Complex number) {
-		// z = a + bi
-		double a = number.getRealPart();
-		double b = number.getImaginaryPart();
-
-		this.multiply(a, b);
-	}
-
-	public void multiply(double real) {
-		this.realPart *= real;
-		this.imaginaryPart *= real;
-	}
-
-	public void multiplyImaginaryOnly(double imaginary) {
-		// z = a + bi
-		// ci = 2i
-		// 2i(a+bi) = -2b + 2ai
-		double newImaginary = this.realPart * imaginary;
-		double newReal = this.imaginaryPart * imaginary * (-1);
-
-		this.realPart = newReal;
-		this.imaginaryPart = newImaginary;
-	}
-
-	public Complex getConjugate() {
+	
+	public static Complex getConjugate(Complex number) {
 		double realConjugatePart;
 		double imaginaryConjugatePart;
 
-		realConjugatePart = this.realPart;
-		imaginaryConjugatePart = (-1) * this.imaginaryPart;
+		realConjugatePart = number.getRealPart();
+		imaginaryConjugatePart = (-1) * number.getImaginaryPart();
 
 		return new Complex(realConjugatePart, imaginaryConjugatePart);
 	}
-
-	public void divideBy(double real, double imaginary) {
-		Complex denominator = new Complex(real, imaginary);
-		Complex denominatorConjugate = denominator.getConjugate();
-		double denominatorReal;
-
-		denominator.multiply(denominatorConjugate.getRealPart(), denominatorConjugate.getImaginaryPart());
-		denominatorReal = denominator.getRealPart();
-		this.multiply(denominatorConjugate);
-
-		this.realPart = this.getRealPart() / denominatorReal;
-		this.imaginaryPart = this.getImaginaryPart() / denominatorReal;
+	
+	public static Complex add(Complex number1, Complex number2) {
+		
+		double resultReal = number1.getRealPart() + number2.getRealPart();
+		double resultImaginary= number1.getImaginaryPart() + number2.getImaginaryPart();
+		
+		return new Complex(resultReal,resultImaginary);
+	}
+	
+	public static Complex multiply(Complex number1, Complex number2) {
+		double realResult = number1.getRealPart() * number2.getRealPart() -
+							number1.getImaginaryPart() * number2.getImaginaryPart();
+		
+		double imaginaryResult = number1.getRealPart()      * number2.getImaginaryPart() +
+								 number1.getImaginaryPart() * number2.getRealPart();
+		
+		return new Complex(realResult, imaginaryResult);
+	}
+	
+	public static Complex divide(Complex number1, Complex number2) {
+		Complex conjugateN2 = Complex.getConjugate(number2);
+		
+		Complex numeretor = Complex.multiply(number1, conjugateN2);
+		Complex denominator = Complex.multiply(number2, conjugateN2);
+		
+		double realResult      = numeretor.getRealPart()      / denominator.getRealPart();
+		double imaginaryResult = numeretor.getImaginaryPart() / denominator.getRealPart();
+		return new Complex(realResult,imaginaryResult);
 	}
 
 	@Override

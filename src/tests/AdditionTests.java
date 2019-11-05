@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import complex_numbers.Complex;
+import complex_numbers.StatusComplex;
 
 class AdditionTests {
 
@@ -18,7 +19,7 @@ class AdditionTests {
 		
 		
 		resultNumber = Complex.add(n1, n2);
-		assertEquals(new Complex(2, false).toString(), resultNumber.toString());
+		assertEquals(new Complex(2, StatusComplex.ONLY_REAL).toString(), resultNumber.toString());
 		
 		resultNumber = Complex.add(n2,n3);
 		assertEquals(new Complex(3,1).toString(), resultNumber.toString());

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import complex_numbers.Complex;
+import complex_numbers.StatusComplex;
 
 class MultiplicationTest {
 
@@ -18,10 +19,10 @@ class MultiplicationTest {
 		
 		
 		resultNumber = Complex.multiply(n1, n1);
-		assertEquals(new Complex(-2, true).toString(), resultNumber.toString());
+		assertEquals(new Complex(-2, StatusComplex.ONLY_IMAG).toString(), resultNumber.toString());
 		
 		resultNumber = Complex.multiply(n1, n2);
-		assertEquals(new Complex(2, false).toString(), resultNumber.toString());
+		assertEquals(new Complex(2, StatusComplex.ONLY_REAL).toString(), resultNumber.toString());
 		
 		resultNumber = Complex.multiply(n2, n3);
 		assertEquals(new Complex(2, 2).toString(), resultNumber.toString());

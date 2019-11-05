@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import complex_numbers.Complex;
+import complex_numbers.StatusComplex;
 
 class DivisionTests {
 
@@ -18,10 +19,10 @@ class DivisionTests {
 		
 		
 		resultNumber = Complex.divide(n1, n1);
-		assertEquals(new Complex(1, false).toString(), resultNumber.toString());
+		assertEquals(new Complex(1, StatusComplex.ONLY_REAL).toString(), resultNumber.toString());
 		
 		resultNumber = Complex.divide(n1, n2);
-		assertEquals(new Complex(-1, true).toString(), resultNumber.toString());
+		assertEquals(new Complex(-1, StatusComplex.ONLY_IMAG).toString(), resultNumber.toString());
 		
 		resultNumber = Complex.divide(n2, n3);
 		assertEquals(new Complex(0.5, 0.5).toString(), resultNumber.toString());
